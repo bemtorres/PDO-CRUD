@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>PDO-CRUD</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+
+
+
+    <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+        <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <link rel="stylesheet" href="css/layouts/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+
+
+    <!--<![endif]-->
+</head>
+
+<body>
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="index.html">MVC-PDO</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="index.html" class="pure-menu-link">Comenzar</a></li>
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="documentation.html" class="pure-menu-link">Documentación #1</a>
+                    </li>
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="webLogin.html" class="pure-menu-link">Documentación #2</a>
+                    </li>
+                   
+                    <span class="pure-menu-heading color-warning">Página Web</span>
+                    <li class="pure-menu-item"><a href="#3" class="pure-menu-link">index.php</a></li>
+                    <span class="pure-menu-heading color-warning">Controlador</span>
+                    <li class="pure-menu-item"><a href="#3" class="pure-menu-link">cLogin.php</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>PHP - MVC - PDO</h1>
+                <h2>Documentación Parte 2</h2>
+            </div>
+
+            <div class="content">
+                <div id="ins">
+                    <h2 class="content-subhead" id="down">Implementación web</h2>
+                </div>
+                <div id="2">
+                    <h2 class="content-subhead" id="2">index.php</h2>
+                    <p>
+                        <center>
+                            <img class="pure-img-responsive" src="img/login.png" alt="Base de Datos">
+                        </center>
+                       
+                 
+                        
+                    </p>
+                    <pre class="code code-wrap color-dark text-white" data-language="html" data-trimmed="true">
+                        <code>   
+form action="Controlador/cLogin.php" method="POST"
+                        </code>
+                    </pre>
+                </div>
+
+                <div id="3">
+                        <h2 class="content-subhead" id="2">index.php</h2>
+                        <p>
+                            <center>
+                                <img class="pure-img-responsive" src="img/login.png" alt="Base de Datos">
+                            </center>
+                           
+                     
+                            
+                        </p>
+                        <pre class="code code-wrap color-dark text-white" data-language="html" data-trimmed="true">
+                            <code>   
+<<span>?php</span>
+session_start();
+if (!isset($rootDir)) {
+    $rootDir = $_SERVER['DOCUMENT_ROOT'];
+}
+require_once ($rootDir . "/DAO/AccesoDAO.php");
+require_once ($rootDir . "/DAO/UsuarioDAO.php");
+                            
+$isLogin = "0";
+$usuario ="";
+$pass = "";
+                            
+if(isset($_POST["txtUsuario"]) && isset($_POST["txtPass"]) ){
+    $usuario = $_POST['txtUsuario'];
+    $pass = $_POST['txtPass'];
+    $pass = hash('sha256', $pass);
+                            
+    $arrayAccesos = AccesoDAO::readAll();
+    foreach($arrayAccesos as $ac){
+        if($ac->getUsername()==$usuario && $ac->getPassword()==$pass){           
+            $isLogin = "1";
+            $usuario = UsuarioDAO::buscar($ac->getId_usuario());
+                                
+            $tipoU = $usuario->getId_tipo_u();
+                                
+                                
+            switch ($tipoU) {
+                case 1:
+                // echo "vendedor";
+                $_SESSION['acceso']= serialize($ac);     
+                $_SESSION['usuario']= serialize($usuario);  
+                            
+                echo "Entro Vendedor";
+                            
+                //header('Location: ../home.php');                        
+                break;
+                
+                case 2:
+                // echo "cajero";
+                $_SESSION['acceso']= serialize($ac);     
+                $_SESSION['usuario']= serialize($usuario);  
+                echo "Entro Cajero";
+                            
+                //header('Location: ../home.php');         
+                break;
+                
+                case 3:
+                // echo "admin";
+                $_SESSION['acceso']= serialize($ac);     
+                $_SESSION['usuario']= serialize($usuario);  
+                echo "Entro admin";
+                            
+                //header('Location: ../home.php');           
+                break;
+            }            
+        }
+    }
+}
+                               
+if($isLogin=="0"){        
+    // $_SESSION['mensaje']= "Usuario Incorrecto";
+                                    
+    echo "no existe";
+                            
+    //header('Location: ../index.php');   
+}
+?>
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ui.js"></script>
+
+</body>
+
+</html>

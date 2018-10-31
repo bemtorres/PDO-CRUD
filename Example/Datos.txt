@@ -1,0 +1,18 @@
+
+--  TIPO USUARIO
+
+INSERT INTO  `tipo_usuario` (`id_tipo_u`, `nombre_tipo_u`) VALUES (1, 'Vendedor');
+INSERT INTO  `tipo_usuario` (`id_tipo_u`, `nombre_tipo_u`) VALUES (2, 'Cajero');
+INSERT INTO  `tipo_usuario` (`id_tipo_u`, `nombre_tipo_u`) VALUES (3, 'Administrador');
+
+-- USUARIO
+
+INSERT INTO `usuario` (`id_usuario`, `rut`, `nombre`, `apellido`, `celular`, `domicilio`, `email`, `activo`, `id_tipo_u`) VALUES (1, '11111-1', 'nombre1', 'apellido1', '82828', 'av. el ricon 123', 'nombre1@email.com', 1, 1);
+INSERT INTO `usuario` (`id_usuario`, `rut`, `nombre`, `apellido`, `celular`, `domicilio`, `email`, `activo`, `id_tipo_u`) VALUES (2, '12222-2', '', 'nombre2', 'apellido2', 'av. serena 342', 'nombre2@email.com', 1, 2);
+INSERT INTO `usuario` (`id_usuario`, `rut`, `nombre`, `apellido`, `celular`, `domicilio`, `email`, `activo`, `id_tipo_u`) VALUES (3, '13333-3', 'nombre3', 'apellido3', '123123', 'san bernardo', 'nombre3@email.com', 1, 3);
+
+-- ACCESO
+
+INSERT INTO `acceso` (`id_acceso`, `id_usuario`, `username`, `password`, `activo`, `rut`) VALUES (1, 1, 'Vendedor1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',1, '11111-1');
+INSERT INTO `acceso` (`id_acceso`, `id_usuario`, `username`, `password`, `activo`, `rut`) VALUES (2, 2, 'Cajero1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',1, '12222-2');
+INSERT INTO `acceso` (`id_acceso`, `id_usuario`, `username`, `password`, `activo`, `rut`) VALUES (3, 3, 'Admin1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',1, '13333-3');

@@ -1,0 +1,22 @@
+
+.color-success {
+    background: rgb(28, 184, 65) !important;
+}
+
+.color-error {
+    background: rgb(202, 60, 60) !important; 
+}
+
+.color-warning {
+    background: rgb(177, 98, 25) !important; 
+}
+
+.color-secondary {
+    background: rgb(66, 184, 221) !important; 
+}
+.color-dark {
+    background: #191818 !important; 
+}
+.text-white {
+    color: rgb(214, 214, 214) !important; 
+}

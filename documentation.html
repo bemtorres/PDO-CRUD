@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>PDO-CRUD</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+
+
+
+    <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+        <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <link rel="stylesheet" href="css/layouts/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+
+
+    <!--<![endif]-->
+</head>
+
+<body>
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="index.html">MVC-PDO</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="index.html" class="pure-menu-link">Comenzar</a></li>
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="documentation.html" class="pure-menu-link">Documentación #1</a>
+                    </li>
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="webLogin.html" class="pure-menu-link">Documentación #2</a>
+                    </li>
+                    <li class="pure-menu-item"><a href="#prom" class="pure-menu-link">Problematica</a></li>
+                    <span class="pure-menu-heading color-warning">BD</span>
+                    <li class="pure-menu-item"><a href="#2" class="pure-menu-link">Conexión BD</a></li>
+                    <span class="pure-menu-heading color-warning">Modelo</span>
+                    <li class="pure-menu-item"><a href="#3" class="pure-menu-link">Acceso.php</a></li>
+                    <li class="pure-menu-item"><a href="#4" class="pure-menu-link">Usuario.php</a></li>
+                    <li class="pure-menu-item"><a href="#5" class="pure-menu-link">TipoUsuario.php</a></li>
+                    <span class="pure-menu-heading color-warning">DAO</span>
+                    <li class="pure-menu-item"><a href="#6" class="pure-menu-link">AccesoDAO.php</a></li>
+                    <li class="pure-menu-item"><a href="#7" class="pure-menu-link">UsuarioDAO.php</a></li>
+                    <li class="pure-menu-item"><a href="#8" class="pure-menu-link">TipoUsuarioDAO.php</a></li>
+                    
+                 
+
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>PHP - MVC - PDO</h1>
+                <h2>Documentación Parte 1</h2>
+            </div>
+
+            <div class="content">
+                <div id="ins">
+                    <h2 class="content-subhead" id="down">Instalación - Herramientas a utilizar</h2>
+                    <p>
+                        - Para la Base de Datos MySQl <a href="http://www.wampserver.com/en/" target="_blank">Wampserver.</a><br>
+                        - Utilzaré <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> para
+                        editar el código.<br>
+                        - mas Plugins de Visual Studio Code <a href="https://github.com/brapifra/vscode-phpserver"
+                            target="_blank">PHP Server.</a><br>
+                        - Usaremos este ejemplo <a href="https://getbootstrap.com/docs/4.1/examples/sign-in/" target="_blank">bootstrap.</a><br>
+                    </p>
+                    <h2 class="content-subhead" id="prom">Problema a Desarrollar</h2>
+                    <p>
+                        <strong>Proyecto Acceso Web</strong><br>
+                        Una tienda de ventas necesita el acceso de sus empleados, el login debe ser capáz de
+                        direccionar a
+                        los distintos tiepo de empleado <strong>(Vendedor,Cajero,Administrador)</strong>
+                    </p>
+                    <p><strong>Base de Datos</strong></p><br>
+                    <center>
+                        <img class="pure-img-responsive" src="img/BD.png" alt="Base de Datos">
+                    </center>
+                    <a class="pure-button" href="Example/DB.txt" title="Visualizar BD para mysql" target="_blank">Ver
+                        base de datos .sql</a>
+                    <a class="pure-button" href="Example/Datos.txt" title="Insertar Datos" target="_blank">Rellenar
+                        Datos .sql</a>
+
+                </div>
+                <div id="2">
+                    <h2 class="content-subhead" id="2">Conexión base de datos</h2>
+                    <p>
+                        <strong>Clase BD</strong><br>
+                        <p>Creamos un carpeta llamada BD dentro de ella un archivo BD.php</p>
+
+                    </p>
+                    <pre class="code code-wrap color-dark text-white" data-language="html" data-trimmed="true">
+                        <code>      
+<<span>?php</span>                                                 
+class DB {
+    public $db;
+    private static $stHost='localhost';  //host Servidor
+    private static $stUsuario='root';    //Usuario Conexión mysql
+    private static $stClave='';          //Contraseña
+    private static $stBd='ventas';      //Nombre Base de datos
+    private static $instancia;          
+
+    public function __construct(){
+        $this->db = new PDO("mysql:host=" . self::$stHost . ";dbname=" .self::$stBd,self::$stUsuario,self::$stClave, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+    }
+    public static function getInstancia(){
+        if (DB::$instancia === null){
+            DB::$instancia = new DB();
+        }
+        return self::$instancia;
+        }
+    }
+                        </code>
+                    </pre>
+                </div>
+                <div id="3">
+                    <h2 class="content-subhead">Modelo - Entidades</h2>
+                    <p>
+                        <strong>Clase Acceso</strong><br>
+                        <p>Creamos un carpeta llamada Modelo dentro de ella la clase llamada <strong>Acceso.php</strong></p>
+                        <pre class="code code-wrap color-dark text-white" data-language="php" data-trimmed="true">
+                        <code> 
+<<span>?php</span>
+class Acceso {
+    //Atributos
+    private $id_acceso;
+    private $id_usuario;
+    private $username;
+    private $password;
+    private $activo;
+    private $rut;
+                                  
+    //Constructor
+    function __construct($id_acceso=0, $id_usuario=0, $username="", $password="", $activo=0, $rut="") {
+        $this->id_acceso = $id_acceso;
+        $this->id_usuario = $id_usuario;
+        $this->username = $username;
+        $this->password = $password;
+        $this->activo = $activo;
+        $this->rut = $rut;
+    }
+
+    //Accesadores y Mutadores
+    function getId_acceso() {
+        return $this->id_acceso;
+    }
+                                
+    function getId_usuario() {
+        return $this->id_usuario;
+    }
+                                
+    function getUsername() {
+        return $this->username;
+    }
+                                
+    function getPassword() {
+        return $this->password;
+    }
+                                
+    function getActivo() {
+        return $this->activo;
+    }
+                                
+    function getRut() {
+        return $this->rut;
+    }
+                                
+    function setId_acceso($id_acceso) {
+        $this->id_acceso = $id_acceso;
+    }
+                                
+    function setId_usuario($id_usuario) {
+        $this->id_usuario = $id_usuario;
+    }
+                                
+    function setUsername($username) {
+        $this->username = $username;
+    }
+                                
+    function setPassword($password) {
+        $this->password = $password;
+    }
+                                
+    function setActivo($activo) {
+        $this->activo = $activo;
+    }
+                                
+    function setId_acceso($rut) {
+        $this->rut = $rut;
+    }
+                                
+    function __toString(){
+        return print_r($this,true);
+    }
+}                            
+                        </code>
+                    </pre>
+                    </p>
+
+                    <p id="4">
+                        <strong>Clase Usuario</strong><br>
+                        <p>se crea el archivo llamada <strong>Usuario.php</strong></p>
+                        <pre class="code code-wrap color-dark text-white" data-language="php" data-trimmed="true">
+                        <code>
+<<span>?php</span>
+class Usuario {
+    private $id_usuario;
+    private $rut;
+    private $nombre;
+    private $apellido;
+    private $celular;
+    private $domicilio;
+    private $email;
+    private $activo;
+    private $id_tipo_u;
+    
+    function __construct($id_usuario, $rut, $nombre, $apellido, $celular, $domicilio, $email, $activo, $id_tipo_u) {
+        $this->id_usuario = $id_usuario;
+        $this->rut = $rut;
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->celular = $celular;
+        $this->domicilio = $domicilio;
+        $this->email = $email;
+        $this->activo = $activo;
+        $this->id_tipo_u = $id_tipo_u;
+    }
+    function getId_usuario() {
+        return $this->id_usuario;
+    }
+                                        
+    function getRut() {
+        return $this->rut;
+    }
+                                        
+    function getNombre() {
+        return $this->nombre;
+    }
+                                        
+    function getApellido() {
+        return $this->apellido;
+    }
+                                        
+    function getCelular() {
+        return $this->celular;
+    }
+                                        
+    function getDomicilio() {
+        return $this->domicilio;
+    }
+                                        
+    function getEmail() {
+        return $this->email;
+    }
+                                        
+    function getActivo() {
+        return $this->activo;
+    }
+                                        
+    function getId_tipo_u() {
+        return $this->id_tipo_u;
+    }
+                                        
+    function setId_usuario($id_usuario) {
+        $this->id_usuario = $id_usuario;
+    }
+                                        
+    function setRut($rut) {
+        $this->rut = $rut;
+    }
+                                        
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+                                        
+    function setApellido($apellido) {
+        $this->apellido = $apellido;
+    }
+                                        
+    function setCelular($celular) {
+        $this->celular = $celular;
+    }
+                                        
+    function setDomicilio($domicilio) {
+        $this->domicilio = $domicilio;
+    }
+                                        
+    function setEmail($email) {
+        $this->email = $email;
+    }
+                                        
+    function setActivo($activo) {
+        $this->activo = $activo;
+    }
+                                        
+    function setId_tipo_u($id_tipo_u) {
+        $this->id_tipo_u = $id_tipo_u;
+    }
+                                        
+    function __toString(){
+        return print_r($this,true);
+    }
+}
+                        </code>
+                    </pre>
+                    </p>
+                    <p id="5">
+                        <strong>Clase TipoUsuario</strong><br>
+                        <p>se crea el archivo llamada <strong>TipoUsuario.php</strong></p>
+                        <pre class="code code-wrap color-dark text-white" data-language="php" data-trimmed="true">
+                            <code>
+<<span>?php</span>
+class TipoUsuario {
+    private $id_tipo_u;
+    private $nombre_tipo_u;
+        
+    function __construct($id_tipo_u, $nombre_tipo_u) {
+        $this->id_tipo_u = $id_tipo_u;
+        $this->nombre_tipo_u = $nombre_tipo_u;
+    }
+    function getId_tipo_u() {
+        return $this->id_tipo_u;
+    }
+
+    function getNombre_tipo_u() {
+        return $this->nombre_tipo_u;
+    }
+                                        
+    function setId_tipo_u($id_tipo_u) {
+        $this->id_tipo_u = $id_tipo_u;
+    }
+
+    function setNombre_tipo_u($nombre_tipo_u) {
+        $this->nombre_tipo_u = $nombre_tipo_u;
+    }
+                                        
+    function __toString(){
+        return print_r($this,true);
+    }
+}                                    
+                                </code>
+                        </pre>
+                    </p>
+
+                </div>
+                <div>
+                    <h2 class="content-subhead">DAO - Objeto de Acceso a Datos</h2>
+                    <p>es un componente de software que suministra una interfaz común entre la aplicación y uno o más
+                        dispositivos de almacenamiento de datos, tales como una Base de datos o un archivo. El término
+                        se aplica frecuentemente al Patrón de diseño Object.</p>
+                        <p id="6"><strong>Clase AccesoDAO</strong><br>
+                            <p>se crea el archivo llamada <strong>AccesoDAO.php</strong></p>
+                            <pre class="code code-wrap color-dark text-white" data-language="php" data-trimmed="true">
+                                        <code>
+<<span>?php</span>
+    if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+                                                
+    require_once($rootDir . "/DB/DB.php");
+    require_once($rootDir . "/Modelo/Acceso.php");
+                                                
+    class AccesoDAO {
+    
+        public static function lastValue(){
+            $cc = DB::getInstancia();
+            $stSql = "SELECT * FROM acceso order by id_acceso desc  limit 1";
+            $rs = $cc->db->prepare($stSql);
+            $rs->execute();
+            $ba = $rs->fetch();
+            $nuevo = new Acceso($ba['id_acceso'],
+                                $ba['id_usuario'],
+                                $ba['username'],
+                                $ba['password'], 
+                                $ba['activo'],
+                                $ba['rut']);
+            return $nuevo;        
+        }
+                                                    
+        public static function buscar($id){
+            $cc = DB::getInstancia();
+            $stSql = "SELECT * FROM acceso WHERE id_acceso=:id_acceso";
+            $rs = $cc->db->prepare($stSql);
+            $rs->execute(array('id_acceso' => $id));
+            $ba = $rs->fetch();
+            $nuevo = new Acceso($ba['id_acceso'],
+                                $ba['id_usuario'],
+                                $ba['username'],
+                                $ba['password'], 
+                                $ba['activo'],
+                                $ba['rut']);
+            return $nuevo;        
+        }
+                                                
+        public static function ingreso($username,$password){
+            $cc = DB::getInstancia();
+            $stSql = "SELECT * FROM acceso WHERE username=:username";
+            $rs = $cc->db->prepare($stSql);
+            $rs->execute(array('username' => $username));
+            $ba = $rs->fetch();
+            return $ba['password'] == $password;
+        }
+                                                    
+        public static function agregar($nuevo) {
+            $cc=DB::getInstancia();
+            $stSql = "INSERT INTO acceso VALUES ";
+            $stSql .= "(:id_acceso,:id_usuario,:username,:password,:activo,:rut)";
+            $rs = $cc->db->prepare($stSql);
+            $params = self::getParams($nuevo);
+            return $rs->execute($params);
+        }
+                                                
+        public static function actualizar($nuevo) {
+            $cc=BD::getInstancia();
+            
+            $stSql = "UPDATE acceso SET "
+                    . " username=:username"
+                    . ",password=:password"
+                    . ",activo=:activo"
+                    . ",rut=:rut"
+                    . " WHERE id_acceso=:id_acceso";
+            $rs = $cc->db->prepare($stSql);
+            $params = self::getParams($nuevo);
+            
+            return $rs->execute($params);
+        }
+                                                
+        public static function eliminar($nuevo) {
+            $cc=DB::getInstancia();
+            $stSql = "DELETE FROM acceso WHERE id_acceso=:id_acceso";
+            $rs = $cc->db->prepare($stSql);
+            $rs->execute(array("id_acceso"=>$nuevo->getId_acceso()));
+        }
+                                                
+        public static function getParams($nuevo){
+            $params = array();
+            $params['id_acceso'] = $nuevo->getId_acceso();
+            $params['id_usuario'] = $nuevo->getId_usuario();
+            $params['username'] = $nuevo->getUsername();
+            $params['password'] = $nuevo->getPassword();
+            $params['activo'] = $nuevo->getActivo();
+            $params['rut'] = $nuevo->getRut();
+            return $params;
+        }
+                                                
+        public static function readAll() { 
+            $cc = DB::getInstancia();
+            $stSql = "SELECT * FROM acceso";
+            $rs = $cc->db->prepare($stSql);
+            $rs->execute();
+            $ba = $rs->fetchAll();
+                                                        
+            $pila = array();
+            foreach ($ba as $c) {
+                $nuevo = new Acceso($c['id_acceso'],
+                                    $c['id_usuario'],
+                                    $c['username'],
+                                    $c['password'],
+                                    $c['activo'],
+                                    $c['rut']);
+                array_push($pila, $nuevo);
+            }
+            return $pila;
+        }
+    }
+                                        </code>
+                                    </pre>
+                        </p>    
+                    <p id="7"><strong>Clase UsuarioDAO</strong><br>
+                        <p>Creamos un carpeta llamada DAO dentro de ella la clase llamada <strong>UsuarioDAO.php</strong></p>
+                        <pre class="code code-wrap color-dark text-white" data-language="php" data-trimmed="true">
+                            <code>
+<<span>?php</span> 
+if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+
+require_once($rootDir . "/DB/DB.php");
+require_once($rootDir . "/Modelo/Usuario.php");
+                                    
+class UsuarioDAO {
+    public static function lastValue(){
+        $cc = DB::getInstancia();
+        $stSql = "SELECT * FROM usuario order by id_usuario desc  limit 1";
+        $rs = $cc->db->prepare($stSql);
+        $rs->execute();
+        $ba = $rs->fetch();
+        $nuevo = new Usuario($ba['id_usuario'],
+                            $ba['rut'],
+                            $ba['nombre'],
+                            $ba['apellido'],                 
+                            $ba['celular'],
+                            $ba['domicilio'],
+                            $ba['email'], 
+                            $ba['activo'],
+                            $ba['id_tipo_u']);
+        return $nuevo;        
+    }
+                                        
+    public static function buscar($id){
+        $cc = DB::getInstancia();
+        $stSql = "SELECT * FROM usuario WHERE id_usuario=:id_usuario";
+        $rs = $cc->db->prepare($stSql);
+        $rs->execute(array('id_usuario' => $id));
+        $ba = $rs->fetch();
+        $nuevo = new Usuario($ba['id_usuario'],
+                            $ba['rut'],
+                            $ba['nombre'],
+                            $ba['apellido'],                 
+                            $ba['celular'],
+                            $ba['domicilio'],
+                            $ba['email'], 
+                            $ba['activo'],
+                            $ba['id_tipo_u']);
+        return $nuevo;        
+    }
+                                        
+    public static function agregar($nuevo) {
+        $cc=DB::getInstancia();
+        $stSql = "INSERT INTO usuario VALUES ";
+        $stSql .= "(:id_usuario,:rut,:nombre,:apellido,:celular,:domicilio,:email,:activo,:id_tipo_u)";
+        $rs = $cc->db->prepare($stSql);
+        $params = self::getParams($nuevo);
+        return $rs->execute($params);
+    }
+                                    
+                                        
+    public static function eliminar($nuevo) {
+        $cc=DB::getInstancia();
+        $stSql = "DELETE FROM usuario WHERE id_usuario=:id_usuario";
+        $rs = $cc->db->prepare($stSql);
+        $rs->execute(array("id_usuario"=>$nuevo->getId_usuario()));
+    }
+                                    
+    public static function getParams($nuevo){
+        $params = array();
+        $params['id_usuario'] = $nuevo->getId_usuario();
+        $params['rut'] = $nuevo->getRut();
+        $params['nombre'] = $nuevo->getNombre();
+        $params['apellido'] = $nuevo->getApellido();        
+        $params['celular'] = $nuevo->getCelular();
+        $params['domicilio'] = $nuevo->getDomicilio();
+        $params['email'] = $nuevo->getEmail();        
+        $params['activo'] = $nuevo->getActivo();
+        $params['id_tipo_u'] = $nuevo->getId_tipo_u();
+        return $params;
+    }
+                                    
+    public static function readAll() { 
+        $cc = DB::getInstancia();
+        $stSql = "SELECT * FROM usuario";
+        $rs = $cc->db->prepare($stSql);
+        $rs->execute();
+        $ba = $rs->fetchAll();
+        
+        $pila = array();
+        foreach ($ba as $c) {
+            $nuevo = new Usuario($c['id_usuario'],
+                                $c['rut'],
+                                $c['nombre'],
+                                $c['apellido'],                 
+                                $c['celular'],
+                                $c['domicilio'],
+                                $c['email'], 
+                                $c['activo'],
+                                $c['id_tipo_u']);
+            array_push($pila, $nuevo);
+        }
+        return $pila;
+    }
+}       
+                                </code>
+                            </pre>
+                    </p>
+                    <p id="8"><strong>Clase TipoUsuarioDAO</strong><br>
+                        <p>se crea el archivo llamada <strong>TipoUsuarioDAO.php</strong></p>
+                        <pre class="code code-wrap color-dark text-white" data-language="php" data-trimmed="true">
+                                <code>
+<<span>?php</span>
+if (!isset($rootDir)) $rootDir = $_SERVER['DOCUMENT_ROOT'];
+
+require_once($rootDir . "/DB/DB.php");
+require_once($rootDir . "/Modelo/TipoUsuario.php");
+                                    
+                                    
+class TipoUsuarioDAO {
+    public static function buscar($id){
+        $cc = DB::getInstancia();
+        $stSql = "SELECT * FROM tipo_usuario WHERE id_tipo_u=:id_tipo_u";
+        $rs = $cc->db->prepare($stSql);
+        $rs->execute(array('id_tipo_u' => $id));
+        $ba = $rs->fetch();
+        $nuevo = new TipoUsuario($ba['id_tipo_u'],$ba['nombre_tipo_u']);
+        return $nuevo;        
+    }
+                                        
+    public static function readAll() { 
+        $cc = DB::getInstancia();
+        $stSql = "SELECT * FROM tipo_usuario";
+        $rs = $cc->db->prepare($stSql);
+        $rs->execute();
+        $ba = $rs->fetchAll();
+                                            
+        $pila = array();
+        foreach ($ba as $c) {
+        $nuevo = new TipoUsuario($c['id_tipo_u'],$c['nombre_tipo_u']);
+        array_push($pila, $nuevo);
+        }
+        return $pila;
+    }
+}
+                                    
+                                </code>
+                            </pre>
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ui.js"></script>
+
+</body>
+
+</html>

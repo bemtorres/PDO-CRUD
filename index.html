@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>PDO-CRUD</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+
+
+
+    <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+        <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
+
+    <!--<![endif]-->
+</head>
+
+<body>
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="#">MVC-PDO</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Getting started</a></li>
+                    <li class="pure-menu-item"><a href="#instalacion" class="pure-menu-link">Introduction</a></li>
+                    <li class="pure-menu-item"><a href="#supp" class="pure-menu-link">Support</a></li>
+                    <li class="pure-menu-item"><a href="#down" class="pure-menu-link">Download</a></li>
+
+                    <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                        <a href="documentation.html" class="pure-menu-link color-warning">Documentation</a>                        
+                    </li>
+                    
+                    <li class="pure-menu-item"><a href="webLogin.html" class="pure-menu-link">Web</a></li>
+
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Acerca</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="header">
+                <h1>PHP - MVC - PDO</h1>
+                <h2>Documentación</h2>
+            </div>
+
+            <div class="content" id="introduccion">
+
+
+                <h2 class="content-subhead">Introducción</h2>
+                <p>
+                    Esta página encontraras una forma sencilla para programar en PHP utilizando la arquitectura de
+                    software MVC.
+
+                    <br><br>Surgue esta documentación a partir de las necesidades de que en internet se encuentra mucha
+                    documentación relaciada pero nada en especifico, basandose en modelos mal hechos y estructuras mal programadas.
+                    <br><br>
+                    <strong>Ventajas:</strong><br>PDO nos permite una abstracción para el acceso a datos.
+                    Es decir que las funciones para realizar consultas y para obtener datos son las mismas en cualquier
+                    servidor SQL utilizado (MySQL, PostgreSQL, ...).
+                    Por ejemplo, si pasas de MySQL a PostegreSQL, no necesitas transformar todo tu código como con las
+                    funciones mysql_ (mysql_connect sería reemplazado por pgsql_connect, mysql_query por pgsql_query,
+                    ...).
+
+
+                    PDO es también orientado a objetos, por lo que podrás extenderlo y administrar los errores con las
+                    excepciones. <strong></strong>
+
+                   
+                </p>
+               
+                       
+
+                <h2 class="content-subhead" id="supp">Base de Datos Soportadas por PDO</h2>
+                <center>
+                    <img class="pure-img-responsive" src="img/intro.png" alt="Intro PHP"><br><br>
+                <table class="pure-table pure-table-bordered center">
+                    <tbody>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-cubrid.php" target="_blank">PDO_CUBRID</a></td>
+                            <td>Cubrid</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-dblib.php" target="_blank">PDO_DBLIB</a></td>
+                            <td>FreeTDS / Microsoft SQL Server / Sybase</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-firebird.php" target="_blank">PDO_FIREBIRD</a></td>
+                            <td>Firebird</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-ibm.php" target="_blank">PDO_IBM</a></td>
+                            <td>IBM DB2</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-informix.php" target="_blank">PDO_INFORMIX</a></td>
+                            <td>IBM Informix Dynamic Server</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-mysql.php" target="_blank">PDO_MYSQL</a></td>
+                            <td>MySQL 3.x/4.x/5.x</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-oci.php" target="_blank">PDO_OCI</a></td>
+                            <td>Oracle Call Interface</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-odbc.php" target="_blank">PDO_ODBC</a></td>
+                            <td>ODBC v3 (IBM DB2, unixODBC and win32 ODBC)</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-pgsql.php" target="_blank">PDO_PGSQL</a></td>
+                            <td>PostgreSQL</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-sqlite.php" target="_blank">PDO_SQLITE</a></td>
+                            <td>SQLite 3 and SQLite 2</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-sqlsrv.php" target="_blank">PDO_SQLSRV</a></td>
+                            <td>Microsoft SQL Server / SQL Azure</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://php.net/manual/en/ref.pdo-4d.php" target="_blank">PDO_4D</a></td>
+                            <td>4D</td>
+                        </tr>
+                    </tbody>
+                </table><br><br>
+            
+                <img class="pure-img-responsive" src="img/intro.png" alt="Intro PHP">
+            </center>
+
+
+                <h2 class="content-subhead" id="down">Download</h2>
+                <p>
+                       ...
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/ui.js"></script>
+
+</body>
+
+</html>

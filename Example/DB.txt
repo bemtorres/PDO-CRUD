@@ -1,0 +1,46 @@
+
+DROP DATABASE IF EXISTS ventas;
+
+CREATE Database ventas;
+
+use ventas;
+
+
+CREATE TABLE acceso
+  (
+    id_acceso  INTEGER NOT NULL ,
+    id_usuario INTEGER NOT NULL ,
+    username   VARCHAR (30) NOT NULL ,
+    password   VARCHAR (64) NOT NULL ,
+    activo     INTEGER NOT NULL ,
+    rut        VARCHAR (11) NOT NULL
+  ) ;
+ALTER TABLE acceso ADD CONSTRAINT acceso_PK PRIMARY KEY ( id_acceso ) ;
+
+
+CREATE TABLE tipo_usuario
+  (
+    id_tipo_u     INTEGER NOT NULL ,
+    nombre_tipo_u VARCHAR (60) NOT NULL
+  ) ;
+ALTER TABLE tipo_usuario ADD CONSTRAINT tipo_usuario_PK PRIMARY KEY ( id_tipo_u ) ;
+
+
+CREATE TABLE usuario
+  (
+    id_usuario INTEGER NOT NULL ,
+    rut        VARCHAR (11) NOT NULL ,
+    nombre     VARCHAR (30) NOT NULL ,
+    apellido   VARCHAR (30) NOT NULL ,
+    celular    VARCHAR (15) NOT NULL ,
+    domicilio  VARCHAR (100) NOT NULL ,
+    email      VARCHAR (60) NOT NULL ,
+    activo     INTEGER NOT NULL ,
+    id_tipo_u  INTEGER NOT NULL
+  ) ;
+ALTER TABLE usuario ADD CONSTRAINT usuario_PK PRIMARY KEY ( id_usuario, rut ) ;
+
+
+ALTER TABLE acceso ADD CONSTRAINT acceso_usuario_FK FOREIGN KEY ( id_usuario, rut ) REFERENCES usuario ( id_usuario, rut ) ;
+
+ALTER TABLE usuario ADD CONSTRAINT usua_tiuso_FK FOREIGN KEY ( id_tipo_u ) REFERENCES tipo_usuario ( id_tipo_u ) ;
